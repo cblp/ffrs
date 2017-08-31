@@ -1,6 +1,6 @@
 module Main where
 
--- import           Control.Monad (void)
+import qualified Data.Map as Map
 import           System.Environment (getEnvironment)
 import           System.IO.Temp (withSystemTempDirectory)
 import           System.Process (env, proc, readCreateProcess)
@@ -15,6 +15,6 @@ testAddAndRetrieve =
     testCase "add and retrieve" $ do
         curEnv <- getEnvironment
         withSystemTempDirectory "ff.test." $ \dir -> do
-            let env' = ("HOME", dir) : curEnv
+            let env' = Map.assocs . Map.insert "HOME" dir $ Map.fromList curEnv
             let ff args = (proc "ff" args){env = Just env'}
             readCreateProcess (ff ["add"]) "" >>= putStrLn
