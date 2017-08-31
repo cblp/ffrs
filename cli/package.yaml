@@ -1,0 +1,13 @@
+name: ff-cli
+
+library:
+  exposed: false
+  source-dirs: lib
+
+executables:
+  ff:
+    main: Main.hs
+    source-dirs: exe
+
+dependencies:
+  - base
