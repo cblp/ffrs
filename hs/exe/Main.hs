@@ -3,6 +3,7 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
 
@@ -32,13 +33,13 @@ main :: IO ()
 main = do
     dataDir <- getUserDataDir "ff"
     let dbFile = dataDir </> "notes.sql"
-    notes <-
+    notes :: [Entity Note] <-
         fmap fromEither $
         tryJust handleDbFileAbsence $
         runSqlite (Text.pack dbFile) $ do
             runMigration migrateAll
             selectList [] []
-    for_ (notes :: [Entity Note]) print
+    for_ notes print
 
 handleDbFileAbsence :: SqliteException -> Maybe [a]
 handleDbFileAbsence = \case
