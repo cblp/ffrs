@@ -1,0 +1,24 @@
+name: ff-cli
+
+library:
+  exposed: false
+  source-dirs: lib
+
+executables:
+  ff:
+    main: Main.hs
+    source-dirs: exe
+
+tests:
+  test:
+    dependencies:
+      - tasty
+      - tasty-hunit
+      - temporary
+      # package
+      - ff-cli
+    main: Main.hs
+    source-dirs: test
+
+dependencies:
+  - base

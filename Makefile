@@ -1,19 +1,24 @@
-all: core cli
+# build
 
-test: core/test cli/test
+build: rs hs
 
-.PHONY: core
-core:
-	cd core && cargo build
+.PHONY: rs
+rs:
+	cd rs && cargo build
 
-.PHONY: cli
-cli: core
-	cd cli && stack build
+.PHONY: hs
+hs: rs
+	cd hs && stack build
 
-.PHONY: core/test
-core/test:
-	cd core && cargo test
+# test
 
-.PHONY: cli/test
-cli/test: core
-	cd cli && stack test
+.PHONY: test
+test: rs/test hs/test
+
+.PHONY: rs/test
+rs/test:
+	cd rs && cargo test
+
+.PHONY: hs/test
+hs/test: rs
+	cd hs && stack test
