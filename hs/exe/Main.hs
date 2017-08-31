@@ -1,4 +1,6 @@
 module Main where
 
+import           System.Environment (getEnvironment)
+
 main :: IO ()
-main = putStrLn "Hello World"
+main = getEnvironment >>= print . lookup "HOME"

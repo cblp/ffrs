@@ -12,6 +12,7 @@ executables:
 tests:
   test:
     dependencies:
+      - process
       - tasty
       - tasty-hunit
       - temporary
