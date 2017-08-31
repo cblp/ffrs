@@ -6,6 +6,12 @@ library:
 
 executables:
   ff:
+    dependencies:
+      - filepath
+      - persistent-sqlite
+      - persistent-template
+      - text
+      - xdg-basedir
     main: Main.hs
     source-dirs: exe
 

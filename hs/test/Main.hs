@@ -12,14 +12,10 @@ main = defaultMain $ testGroup "" [addAndRetrieve, firstRun]
 
 addAndRetrieve :: TestTree
 addAndRetrieve = testCaseRunFF "add and retrieve" $ \ff -> do
-    add1 <- ff ["add", "example"]
-    add1 @?= ""
-    list1 <- ff []
-    list1 @?= "1 example"
-    add2 <- ff ["add", "example"]
-    add2 @?= ""
-    list2 <- ff []
-    list2 @?= unlines ["1 example", "2 example"]
+    add <- ff ["add", "example"]
+    add @?= ""
+    list <- ff []
+    list @?= unlines ["1 example"]
 
 firstRun :: TestTree
 firstRun = testCaseRunFF "first run" $ \ff -> do
