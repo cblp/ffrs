@@ -1,13 +1,14 @@
 name: ff-cli
 
-library:
-  exposed: false
-  source-dirs: lib
+# library:
+#   exposed: false
+#   source-dirs: lib
 
 executables:
   ff:
     dependencies:
       - filepath
+      - optparse-applicative
       - persistent-sqlite
       - persistent-template
       - text
@@ -24,7 +25,7 @@ tests:
       - tasty-hunit
       - temporary
       # package
-      - ff-cli
+      # - ff-cli
     main: Main.hs
     source-dirs: test
 

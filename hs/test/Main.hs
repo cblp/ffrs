@@ -13,21 +13,21 @@ main = defaultMain $ testGroup "" [addAndRetrieve, firstRun]
 addAndRetrieve :: TestTree
 addAndRetrieve = testCaseRunFF "add and retrieve" $ \ff -> do
     add <- ff ["add", "example"]
-    add @?= ""
+    add @?= []
     list <- ff []
-    list @?= unlines ["1 example"]
+    list @?= ["1 example"]
 
 firstRun :: TestTree
 firstRun = testCaseRunFF "first run" $ \ff -> do
     list <- ff []
-    list @?= ""
+    list @?= []
 
-type Proc = [String] -> IO String
+type Proc = [String] -> IO [String]
 
 testCaseRunFF :: TestName -> (Proc -> IO ()) -> TestTree
 testCaseRunFF name action = testCase name $ do
     curEnv <- getEnvironment
     withSystemTempDirectory "ff.test." $ \dir -> do
         let env' = Map.assocs . Map.insert "HOME" dir $ Map.fromList curEnv
-        let ff args = readCreateProcess (proc "ff" args){env = Just env'} ""
+        let ff args = lines <$> readCreateProcess (proc "ff" args){env = Just env'} ""
         action ff

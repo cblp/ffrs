@@ -1,3 +1,0 @@
-module FF.Main
-    (
-    ) where
