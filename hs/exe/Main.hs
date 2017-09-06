@@ -10,6 +10,7 @@
 
 module Main where
 
+import           Control.Applicative ((<|>))
 import           Control.Exception (tryJust)
 import           Data.Foldable (for_)
 import           Data.Semigroup ((<>))
@@ -37,7 +38,7 @@ optionsParser =
     info (helper <*> programOptions) $
         fullDesc <> progDesc "ff - description" <> header "ff - header"
   where
-    programOptions = hsubparser $ addCommand <> listCommand
+    programOptions = hsubparser (addCommand <> listCommand) <|> listOptions
     addCommand  = command "add"   (info addOptions  (progDesc "Add a note"))
     listCommand = command "list"  (info listOptions (progDesc "List notes"))
     addOptions  = Add . Text.pack <$> strArgument (metavar "TEXT" <> help "note text")
