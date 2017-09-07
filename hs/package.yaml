@@ -7,10 +7,14 @@ name: ff-cli
 executables:
   ff:
     dependencies:
+      - directory
       - filepath
       - optparse-applicative
+      - monad-logger
+      - mtl
       - persistent-sqlite
       - persistent-template
+      - resourcet
       - text
       - xdg-basedir
     main: Main.hs
